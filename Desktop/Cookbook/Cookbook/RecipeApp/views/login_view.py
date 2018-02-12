@@ -22,7 +22,7 @@ def login_page(request):
 	
 	if request.method == 'GET':
 		if 'next' in request.GET:
-			return render(request, 'RecipeApp/login.html', {'next' : request.GET['next']})
+			return render(request, 'RecipeApp/login.html', {'next' : request.GET['next'], 'message' : 'This pages requires a login'})
 		else:
 			return render(request, 'RecipeApp/login.html')
 			

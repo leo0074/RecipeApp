@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load staticfiles %}
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60px;
+} 
+
+li a {
+    display: block;
+    width: 60px;
+}
+</style>
+<ul>
+
+{% if user.is_authenticated %}
+	<li><a href='{% url "logout" %}'><span>{% trans "Logout" %}</span></a></li>
+    
+{% else %}
+    <li><a href='{% url "login" %}'><span>{% trans "Login" %}</span></a></li>
+{% endif %}
+
+<li><a href='{% url "recipes" %}'><span>{% trans "Recipes" %}</span></a></li>
+
+{% if user.is_authenticated %}
+	<p>Welcome, {{ user.username }}.</p>
+{% endif %}	
+</ul>
