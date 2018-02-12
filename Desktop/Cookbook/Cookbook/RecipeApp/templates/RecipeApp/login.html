@@ -1,24 +1,16 @@
-
-{% block content %}
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
+<html>
+<head>
+<title>
+Login page
+</title>
+</head>
+<body>
+<p>{{ message }}</p>
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
 <label for="username">Username</label><br>
-<input type="text" name="username"><br>
+<input type="text" name="username" value="{{ username }}"><br>
 <label for="username">Password</label><br>
 <input type="password" name="password">
 
@@ -28,5 +20,5 @@
 </div>
 </form>
 
-
-{% endblock %}
+</body>
+</html>
