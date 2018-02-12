@@ -1,7 +1,7 @@
 from django.urls import include, path
 from django.contrib import admin
-from RecipeApp import views
+from RecipeApp.views import login_view
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('login', login_view.login, name='login'),
     path('admin/', admin.site.urls),
 ]
