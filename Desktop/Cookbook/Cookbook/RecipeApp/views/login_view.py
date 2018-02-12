@@ -12,9 +12,18 @@ def login_page(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return HttpResponse('Login successful!')
+			next = request.POST['next']
+			if next != '':
+				return render(request, next[1:]+'.html')
+			else:
+				return HttpResponse('You have successfully logged in')
 		else:
-			return render(request, 'RecipeApp/login.html', {'username' : username, 'message' : 'Invalid username or password'})
+			return render(request, 'RecipeApp/login.html', {'username' : username, 'message' : 'Invalid username or password', 'next' : request.POST['next']})
+	
 	if request.method == 'GET':
-		return render(request, 'RecipeApp/login.html')
+		if 'next' in request.GET:
+			return render(request, 'RecipeApp/login.html', {'next' : request.GET['next']})
+		else:
+			return render(request, 'RecipeApp/login.html')
+			
 	
