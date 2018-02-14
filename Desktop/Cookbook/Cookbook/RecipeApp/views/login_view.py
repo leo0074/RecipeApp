@@ -16,7 +16,7 @@ def login_page(request):
 			if next != '':
 				return render(request, next[1:]+'.html')
 			else:
-				return HttpResponse('You have successfully logged in')
+				return render(request, 'RecipeApp/login_success.html')
 		else:
 			return render(request, 'RecipeApp/login.html', {'username' : username, 'message' : 'Invalid username or password', 'next' : request.POST['next']})
 	
