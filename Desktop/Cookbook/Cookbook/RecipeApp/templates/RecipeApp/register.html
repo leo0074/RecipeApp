@@ -1,0 +1,21 @@
+{% include 'RecipeApp/header.html' %}
+<p>{{ message }}</p>
+<form method="post" action="{% url 'register' %}">
+{% csrf_token %}
+
+<label for="username">First Name</label><br>
+<input type="text" name="first_name" value="{{ first_name }}"><br>
+<label for="username">Last Name</label><br>
+<input type="text" name="last_name" value="{{ last_name }}"><br>
+<label for="username">Email Address</label><br>
+<input type="text" name="email" value="{{ email }}"><br>
+<label for="username">Username</label><br>
+<input type="text" name="username"><br>
+<label for="username">Password</label><br>
+<input type="password" name="password"><br>
+<label for="username">Password again</label><br>
+<input type="password" name="password2">
+<div>
+  <input type="submit" value="register" />
+</div>
+</form>
