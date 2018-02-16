@@ -19,6 +19,7 @@ Recipe App
 <ul class="nav navbar-nav">
 <li><a href="#">Home</a></li>
 <li><a href='{% url "recipes" %}'><span>{% trans "Recipes" %}</span></a></li>
+<li><a href='{% url "new_recipe" %}'><span>{% trans "New recipe" %}</span></a></li>
 </ul>
 <ul class="nav navbar-nav navbar-right">
 {% if user.is_authenticated %}

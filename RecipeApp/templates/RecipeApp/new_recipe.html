@@ -1,0 +1,32 @@
+{% include 'RecipeApp/header.html' %}
+<html>
+<head>
+<title>
+Login page
+</title>
+</head>
+<body>
+
+<p>{{ message }}</p>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+<label for="username">Ingredients</label><br>
+<select name="unit">
+<option value="g">g</option>
+<option value="ml">ml</option>
+<option value="tb">tb</option>
+<option value="tb">ts</option>
+</select>
+<input type="text" name="username"><br>
+<label for="username">The recipe</label><br>
+<textarea name="recipe"></textarea>
+
+<div>
+  <input type="submit" value="login" />
+</div>
+</form>
+
+</body>
+</html>
+
