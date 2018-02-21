@@ -7,23 +7,47 @@ Login page
 </head>
 <body>
 
+<script type="text/javascript">
+var amount = 1;
+
+function Append(){
+	amount++;
+    var div = document.createElement('div');
+	div.id = 'ingredient'+amount;
+    div.innerHTML =
+        '<select name="unit"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select><input type="text" name="ingredient'+amount+'"><input type="button" value="remove" onclick="DeleteLast('+amount+')">';
+
+    document.getElementById('ingredients').appendChild(div);
+}
+
+function DeleteLast(number){
+	document.getElementById('ingredients').removeChild(document.getElementById('ingredient'+number));
+}
+
+</script>
+
 <p>{{ message }}</p>
-<form method="post" action="{% url 'login' %}">
+<form method="post" action="{% url 'new_recipe' %}">
 {% csrf_token %}
 
-<label for="username">Ingredients</label><br>
+<label for="ingredients">Ingredients</label><br>
+<div name="ingredients" id= "ingredients">
+<div>
 <select name="unit">
 <option value="g">g</option>
 <option value="ml">ml</option>
 <option value="tb">tb</option>
 <option value="tb">ts</option>
 </select>
-<input type="text" name="username"><br>
-<label for="username">The recipe</label><br>
+<input type="text" name="ingredient1"><br>
+</div>
+</div>
+<input type="button" value="add ingredient" onclick="Append()"><br><br>
+<label for="recipe">The recipe</label><br>
 <textarea name="recipe"></textarea>
 
 <div>
-  <input type="submit" value="login" />
+  <input type="submit" value="submit"/>
 </div>
 </form>
 
