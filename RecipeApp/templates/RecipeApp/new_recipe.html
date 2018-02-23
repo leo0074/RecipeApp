@@ -19,7 +19,7 @@ Login page
 </div>
 <input type="button" value="add ingredient" onclick="append()"><br><br>
 <label for="recipe">The recipe</label><br>
-<textarea cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
+<textarea style="font-family: Courier;" cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
 
 <div>
   <input type="submit" value="submit"/>
@@ -56,15 +56,16 @@ function auto_grow(element) {
 	var extraheight = 0;
 	for(var x = 0; x < height; x++){	
 		words = rows[x].split(" ");
-		length = Math.max(length, rows[x].length - words.length + 1);
-		var currentRowLength = 0;
+		length = Math.max(length, rows[x].length);
+		var currentRowLength = -3;
 		var wordNumber = 0;
 		while(wordNumber < words.length){
 			do{
 				currentRowLength = currentRowLength + words[wordNumber].length;
-				if(currentRowLength >= lengthLimits[1]){
+				if(currentRowLength > lengthLimits[1] - words.length){
 					extraheight++;
-					currentRowLength = words[wordNumber].length
+					currentRowLength = -3;
+					continue;
 				}
 				wordNumber++;
 			}while(currentRowLength < lengthLimits[1] && wordNumber < words.length);
@@ -72,9 +73,9 @@ function auto_grow(element) {
 		
 
 	}
-	height = height + extraheight;
-	if(length < lengthLimits[1])	
-		element.cols = Math.max(length + 10,lengthLimits[0]);	
+	height = height + extraheight;	
+	element.cols = Math.min(Math.max(length + 5,lengthLimits[0]), lengthLimits[1]);	
+		
 	element.rows = Math.min(height+1, maxheight);
 }
 
@@ -83,4 +84,3 @@ append();
 </script>
 </body>
 </html>
-
