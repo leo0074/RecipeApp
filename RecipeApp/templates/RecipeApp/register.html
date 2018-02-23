@@ -1,6 +1,6 @@
 {% include 'RecipeApp/header.html' %}
-<p>{{ message }}</p>
-<form method="post" action="{% url 'register' %}">
+<p id="message">{{ message }}</p>
+<form id="register" method="post" action="{% url 'register' %}">
 {% csrf_token %}
 
 <label for="username">First Name</label><br>
@@ -16,6 +16,47 @@
 <label for="username">Password again</label><br>
 <input type="password" name="password2">
 <div>
-  <input type="submit" value="register" />
+  <input type="button" value="register" onclick="checkSubmit()" />
 </div>
 </form>
+
+<script type="text/javascript">
+function checkSubmit(){
+
+var pass1 = document.getElementById("register").password.value;
+var pass2 = document.getElementById("register").password2.value;
+if(pass1 != pass2){
+	document.getElementById("message").innerHTML = "Passwords do not match";
+	return;
+}
+if(pass1.length < 7){
+	document.getElementById("message").innerHTML = "The password should be at least 7 characters";
+	return;
+}
+if(document.getElementById("register").username.value == ""){
+	document.getElementById("message").innerHTML = "Empty username";
+	return;
+}
+if(document.getElementById("register").first_name.value == ""){
+	document.getElementById("message").innerHTML = "Empty first name";
+	return;
+}
+if(document.getElementById("register").last_name.value == ""){
+	document.getElementById("message").innerHTML = "Empty last name";
+	return;
+}
+if(document.getElementById("register").email.value == ""){
+	document.getElementById("message").innerHTML = "Empty email address";
+	return;
+}
+
+document.getElementById("register").submit();
+
+
+
+
+}
+
+
+
+</script>

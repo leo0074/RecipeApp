@@ -12,9 +12,9 @@ Login page
 {% csrf_token %}
 
 <label for="username">Username</label><br>
-<input type="text" name="username" value="{{ username }}"><br>
+<input type="text" name="username" value="{{ username }}" required><br>
 <label for="username">Password</label><br>
-<input type="password" name="password">
+<input type="password" name="password" required>
 
 <div>
   <input type="submit" value="login" />
