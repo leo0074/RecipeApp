@@ -7,50 +7,80 @@ Login page
 </head>
 <body>
 
-<script type="text/javascript">
-var amount = 1;
-
-function Append(){
-	amount++;
-    var div = document.createElement('div');
-	div.id = 'ingredient'+amount;
-    div.innerHTML =
-        '<select name="unit"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select><input type="text" name="ingredient'+amount+'"><input type="button" value="remove" onclick="DeleteLast('+amount+')">';
-
-    document.getElementById('ingredients').appendChild(div);
-}
-
-function DeleteLast(number){
-	document.getElementById('ingredients').removeChild(document.getElementById('ingredient'+number));
-}
-
-</script>
-
 <p>{{ message }}</p>
 <form method="post" action="{% url 'new_recipe' %}">
 {% csrf_token %}
-
+<label for="name">Name</label><br>
+<input type="text" name="name"><br>
+<div name="name" id= "name">
 <label for="ingredients">Ingredients</label><br>
 <div name="ingredients" id= "ingredients">
-<div>
-<select name="unit">
-<option value="g">g</option>
-<option value="ml">ml</option>
-<option value="tb">tb</option>
-<option value="tb">ts</option>
-</select>
-<input type="text" name="ingredient1"><br>
+
 </div>
-</div>
-<input type="button" value="add ingredient" onclick="Append()"><br><br>
+<input type="button" value="add ingredient" onclick="append()"><br><br>
 <label for="recipe">The recipe</label><br>
-<textarea name="recipe"></textarea>
+<textarea cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
 
 <div>
   <input type="submit" value="submit"/>
 </div>
 </form>
 
+
+
+<script type="text/javascript">
+var amount = 0;
+
+function append(){
+	amount++;
+    var div = document.createElement('div');
+	div.id = 'ingredient'+amount;
+    div.innerHTML =
+        '<select name="unit'+amount+'"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select><input type="text" name="ingredient'+amount+'"><input type="button" value="remove" onclick="deleteLast('+amount+')">';
+
+    document.getElementById('ingredients').appendChild(div);
+}
+
+function deleteLast(number){
+	document.getElementById('ingredients').removeChild(document.getElementById('ingredient'+number));
+}
+
+
+function auto_grow(element) {
+	var lengthLimits = [10, 200];
+	var maxheight = 20;
+	var text = element.value;
+	var rows = text.split("\n");
+	var height = rows.length;
+	var length = 0;
+	var extraheight = 0;
+	for(var x = 0; x < height; x++){	
+		words = rows[x].split(" ");
+		length = Math.max(length, rows[x].length - words.length + 1);
+		var currentRowLength = 0;
+		var wordNumber = 0;
+		while(wordNumber < words.length){
+			do{
+				currentRowLength = currentRowLength + words[wordNumber].length;
+				if(currentRowLength >= lengthLimits[1]){
+					extraheight++;
+					currentRowLength = words[wordNumber].length
+				}
+				wordNumber++;
+			}while(currentRowLength < lengthLimits[1] && wordNumber < words.length);
+		}
+		
+
+	}
+	height = height + extraheight;
+	if(length < lengthLimits[1])	
+		element.cols = Math.max(length + 10,lengthLimits[0]);	
+	element.rows = Math.min(height+1, maxheight);
+}
+
+
+append();
+</script>
 </body>
 </html>
 
