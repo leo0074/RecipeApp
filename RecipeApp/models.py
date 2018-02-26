@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.TextField()
 	recipe_text = models.TextField()
 	created_date = models.DateTimeField()
 

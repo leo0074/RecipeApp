@@ -1,2 +1,8 @@
 {% include 'RecipeApp/header.html' %}
-<p>Here are the recipes!</p>
+{% for recipe in recipes %}
+
+<div>
+<p>{{ recipe.name }}</p>
+<p>{{ recipe.recipe_text }}</p>
+</div>
+{% endfor %}

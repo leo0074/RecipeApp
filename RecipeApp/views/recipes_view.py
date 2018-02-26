@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from RecipeApp.models import Recipe, Ingredient
 
-@login_required
 def recipes(request):
-    return render(request, 'RecipeApp/recipes.html')
+	recipes = Recipe.objects.values()
+	list_recipes = [entry for entry in recipes]
+	return render(request, 'RecipeApp/recipes.html', {'recipes' : list_recipes})

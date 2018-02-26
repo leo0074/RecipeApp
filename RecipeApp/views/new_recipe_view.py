@@ -11,15 +11,11 @@ def new_recipe(request):
 		recipeName = request.POST['name']
 		recipeText = request.POST['recipe']
 		ingredientAmount = int(request.POST['amount'])
-		recipe = Recipe(owner=request.user, recipe_text = recipeText, created_date = timezone.now())
-		print(recipe.recipe_text)
+		recipe = Recipe(owner=request.user, recipe_text = recipeText, created_date = timezone.now(), name = recipeName)
 		recipe.save()
 		for x in range(ingredientAmount, 0, -1):
 			if request.POST['ingredient'+str(x)] != "":
 				ingredient = Ingredient(recipe = recipe, name = request.POST['ingredient'+str(x)], unit = request.POST['unit'+str(x)], quantity = request.POST['quantity'+str(x)])
-				print(ingredient.name)
-				print(ingredient.unit)
-				print(ingredient.quantity)
 				ingredient.save()
 		
 		return render(request, 'RecipeApp/new_recipe.html', {'message' : 'Recipe posted successfully'})
