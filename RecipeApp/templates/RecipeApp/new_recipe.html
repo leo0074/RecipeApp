@@ -10,14 +10,14 @@ Login page
 <form id="recipeForm" method="post" action="{% url 'new_recipe' %}">
 {% csrf_token %}
 <label for="name">Name</label><br>
-<input type="text" name="name" id="recipeName"><br>
+<input type="text" name="name" id="recipeName" required><br>
 <div name="name" id= "name">
 <label for="ingredients">Ingredients</label><br>
 <div name="ingredients" id= "ingredients">
 </div>
 <input type="button" value="add ingredient" onclick="append()"><br><br>
 <label for="recipe">The recipe</label><br>
-<textarea id="recipe" style="font-family: Courier;" cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
+<textarea id="recipe" style="font-family: Courier;" cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)" required></textarea>
 <input type="hidden" id="amount" name="amount">
 <div>
   <input type="button" value="submit" onclick="checkSubmit()">
@@ -33,7 +33,9 @@ function append(){
     var div = document.createElement('div');
 	div.id = 'ingredient'+amount;
     div.innerHTML =
-        '<select name="unit'+amount+'"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select><input type="text" name="ingredient'+amount+'"><input type="button" value="remove" onclick="deleteLast('+amount+')">';
+        '<input style="width: 80px;" type="number" name="quantity'+amount+'" required>'+
+		'<select name="unit'+amount+'"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select>'+
+		'<input type="text" name="ingredient'+amount+'" required><input type="button" value="remove" onclick="deleteLast('+amount+')">';
 
     document.getElementById('ingredients').appendChild(div);
 }
@@ -43,15 +45,12 @@ function deleteLast(number){
 }
 
 function checkSubmit(){
-	document.getElementById('amount').value = amount;
-	if(document.getElementById("recipeName").value == ""){
-		document.getElementById("message").innerHTML = "Empty name";
+	document.getElementById("amount").value = amount;
+	
+	if (!document.getElementById("recipeForm").checkValidity()) {
+		document.getElementById("message").innerHTML = "Fill all fields";
 		return;
 	}
-	if(document.getElementById("recipe").value == ""){
-		document.getElementById("message").innerHTML = "Empty recipe";
-		return;
-	}	
 	document.getElementById("recipeForm").submit();
 }
 

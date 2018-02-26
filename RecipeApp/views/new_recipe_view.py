@@ -16,9 +16,10 @@ def new_recipe(request):
 		recipe.save()
 		for x in range(ingredientAmount, 0, -1):
 			if request.POST['ingredient'+str(x)] != "":
-				ingredient = Ingredient(recipe = recipe, name = request.POST['ingredient'+str(x)], unit = request.POST['unit'+str(x)])
+				ingredient = Ingredient(recipe = recipe, name = request.POST['ingredient'+str(x)], unit = request.POST['unit'+str(x)], quantity = request.POST['quantity'+str(x)])
 				print(ingredient.name)
 				print(ingredient.unit)
+				print(ingredient.quantity)
 				ingredient.save()
 		
 		return render(request, 'RecipeApp/new_recipe.html', {'message' : 'Recipe posted successfully'})
