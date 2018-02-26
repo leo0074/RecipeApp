@@ -6,23 +6,21 @@ Login page
 </title>
 </head>
 <body>
-
-<p>{{ message }}</p>
-<form method="post" action="{% url 'new_recipe' %}">
+<p id="message">{{ message }}</p>
+<form id="recipeForm" method="post" action="{% url 'new_recipe' %}">
 {% csrf_token %}
 <label for="name">Name</label><br>
-<input type="text" name="name"><br>
+<input type="text" name="name" id="recipeName"><br>
 <div name="name" id= "name">
 <label for="ingredients">Ingredients</label><br>
 <div name="ingredients" id= "ingredients">
-
 </div>
 <input type="button" value="add ingredient" onclick="append()"><br><br>
 <label for="recipe">The recipe</label><br>
-<textarea style="font-family: Courier;" cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
-
+<textarea id="recipe" style="font-family: Courier;" cols="10" rows="2" name="recipe" onkeyup="auto_grow(this)"></textarea>
+<input type="hidden" id="amount" name="amount">
 <div>
-  <input type="submit" value="submit"/>
+  <input type="button" value="submit" onclick="checkSubmit()">
 </div>
 </form>
 
@@ -30,7 +28,6 @@ Login page
 
 <script type="text/javascript">
 var amount = 0;
-
 function append(){
 	amount++;
     var div = document.createElement('div');
@@ -45,6 +42,18 @@ function deleteLast(number){
 	document.getElementById('ingredients').removeChild(document.getElementById('ingredient'+number));
 }
 
+function checkSubmit(){
+	document.getElementById('amount').value = amount;
+	if(document.getElementById("recipeName").value == ""){
+		document.getElementById("message").innerHTML = "Empty name";
+		return;
+	}
+	if(document.getElementById("recipe").value == ""){
+		document.getElementById("message").innerHTML = "Empty recipe";
+		return;
+	}	
+	document.getElementById("recipeForm").submit();
+}
 
 function auto_grow(element) {
 	var lengthLimits = [10, 200];
@@ -70,16 +79,12 @@ function auto_grow(element) {
 				wordNumber++;
 			}while(currentRowLength < lengthLimits[1] && wordNumber < words.length);
 		}
-		
-
 	}
 	height = height + extraheight;	
 	element.cols = Math.min(Math.max(length + 5,lengthLimits[0]), lengthLimits[1]);	
 		
 	element.rows = Math.min(height+1, maxheight);
 }
-
-
 append();
 </script>
 </body>
