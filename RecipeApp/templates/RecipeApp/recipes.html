@@ -2,7 +2,6 @@
 {% for recipe in recipes %}
 
 <div>
-<p>{{ recipe.name }}</p>
-<p>{{ recipe.recipe_text }}</p>
+<a href="{% url 'recipes' %}?id={{ recipe.id }}">{{ recipe.name }} by {{ recipe.owner.username}}</a>
 </div>
 {% endfor %}

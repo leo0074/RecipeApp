@@ -1,0 +1,16 @@
+{% include 'RecipeApp/header.html' %}
+
+<div>
+<h1>{{ recipe.name }} by {{ recipe.owner.username}}</h1>
+<h2>Ingredients:</h2>
+{% for ingredient in ingredients %}
+<p>- {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }} </p>
+{% endfor %}
+<h2>The recipe:</h2>
+{% for line in lines %}
+<p>{{ line }}</p>
+{% endfor %}
+
+
+
+</div>

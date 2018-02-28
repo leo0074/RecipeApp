@@ -34,7 +34,7 @@ function append(){
 	div.id = 'ingredient'+amount;
     div.innerHTML =
         '<input style="width: 80px;" type="number" name="quantity'+amount+'" required>'+
-		'<select name="unit'+amount+'"><option value="g">g</option><option value="ml">ml</option><option value="tb">tb</option><option value="tb">ts</option></select>'+
+		'<select name="unit'+amount+'"><option value="g">g</option><option value="pcs">pcs</option><option value="ml">ml</option><option value="dl">dl</option><option value="tb">tb</option><option value="tb">ts</option></select>'+
 		'<input type="text" name="ingredient'+amount+'" required><input type="button" value="remove" onclick="deleteLast('+amount+')">';
 
     document.getElementById('ingredients').appendChild(div);
