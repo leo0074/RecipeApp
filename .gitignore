@@ -1,3 +1,4 @@
 /RecipeApp/migrations
 /RecipeApp/CookBook/wsgi.py
 /RecipeApp/CookBook/__pycache__
+/RecipeApp/CookBook/settigs.py
