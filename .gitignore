@@ -1,2 +1,3 @@
 /RecipeApp/migrations
 /RecipeApp/CookBook/settigs.py
+/RecipeApp/CookBook/wsgi.py
