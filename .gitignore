@@ -2,3 +2,4 @@
 /RecipeApp/CookBook/wsgi.py
 /RecipeApp/CookBook/__pycache__
 /RecipeApp/CookBook/settings.py
+/RecipeApp/tests/__pycache__/test_recipes_view.cpython-36.pyc
