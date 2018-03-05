@@ -4,13 +4,14 @@ from django.test import Client
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 def init():
 	recipes = Recipe.objects.all()
 	if len(recipes) == 0:
 		recipes.delete()
 		
 
-class QuestionIndexViewTests(TestCase):
+class Recipe_view_tests(TestCase):
 	def test_no_recipes(self):
 		client = Client()
 		response = client.get('/RecipeApp/recipes')
