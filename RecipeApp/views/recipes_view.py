@@ -11,4 +11,9 @@ def recipes(request):
 	else:
 		recipes = Recipe.objects.all()
 		list_recipes = [entry for entry in recipes]
-		return render(request, 'RecipeApp/recipes.html', {'recipes' : list_recipes})
+		
+		if len(list_recipes) == 0:
+			return render(request, 'RecipeApp/recipes.html', {'message' : 'No recipes are available.'})
+		else:
+		
+			return render(request, 'RecipeApp/recipes.html', {'recipes' : list_recipes})
