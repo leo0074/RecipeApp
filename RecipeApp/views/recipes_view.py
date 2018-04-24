@@ -9,7 +9,17 @@ def recipes(request):
 		ingredients = Ingredient.objects.filter(recipe = recipe)
 		return render(request, 'RecipeApp/recipe.html', {'recipe' : recipe, 'lines' : lines, 'ingredients' : ingredients})
 	else:
-		recipes = Recipe.objects.all()
+	
+		if request.method == 'POST':
+			type = request.POST.get('type')
+			condition = request.POST.get('condition')
+			search = request.POST.get('search')
+			
+			print(type+" "+condition+" "+search)
+			
+			recipes = Recipe.objects.all()
+		else:
+			recipes = Recipe.objects.all()
 		list_recipes = [entry for entry in recipes]
 		
 		if len(list_recipes) == 0:

@@ -1,6 +1,34 @@
 {% include 'RecipeApp/header.html' %}
-{% for recipe in recipes %}
 
+
+
+<p>Add filter conditions</p>
+<form method="post" action='{% url "recipes" %}'>
+{% csrf_token %}
+<select name="type" id="select1" onchange="changeText();">
+  <option value="owner">Creator</option>
+  <option value="name">Rrecipe name</option>
+  <option value="ingredient">Has ingredient</option>
+</select>
+
+<select name="condition" id="select2">
+  <option value="eq">Equals</option>
+  <option value="contains">Contain</option>
+</select>
+<input name="search" type="text">
+<input type="submit" value="search">
+</form>
+<script type="text/javascript">
+function changeText(){
+	if(document.getElementById("select1").options[2].selected){
+		document.getElementById("select2").options[1].innerHTML = "Containing";
+	}else{
+		document.getElementById("select2").options[1].innerHTML = "Contain";
+	}
+}
+</script>
+
+{% for recipe in recipes %}
 <div>
 <a href="{% url 'recipes' %}?id={{ recipe.id }}">{{ recipe.name }} by {{ recipe.owner.username}}</a>
 </div>
